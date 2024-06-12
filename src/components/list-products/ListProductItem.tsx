@@ -3,7 +3,7 @@ import { Product } from '../../types/Product.interface';
 
 export default function ProductItem({ product }: { product: Product }) {
     const shoppingCartDispatch: React.Dispatch<any> = useShoppingCartDispatchContext();
-    
+
     return (<>
         <article className="overflow-hidden rounded-lg shadow transition hover:shadow-lg my-6 cursor-pointer" key={product.id} onClick={() => {
             shoppingCartDispatch({
@@ -24,6 +24,9 @@ export default function ProductItem({ product }: { product: Product }) {
                 <h3 className="mt-0.5 text-lg text-gray-900">{product.title}</h3>
                 <p className="mt-2 line-clamp-3 text-sm/rproductaxed text-gray-500">
                     {product.description}
+                </p>
+                <p className="mt-2 line-clamp-3 text-sm/rproductaxed text-gray-500 font-bold text-2xl text-center">
+                    <span>🎁 Price:</span> <span>${product.price}</span>
                 </p>
             </div>
         </article>
