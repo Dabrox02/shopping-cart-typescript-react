@@ -4,7 +4,10 @@ import { useShoppingCartContext } from "../../context/GeneralContext";
 
 export default function ShoppingCart() {
     const cartItems: ShoppingCartProduct[] = useShoppingCartContext();
-    console.log(cartItems)
+    let total = 0;
+    cartItems.forEach((el) => {
+        total = total + el.quantity * el.price
+    })
 
     return (<>
         <div
@@ -23,6 +26,13 @@ export default function ShoppingCart() {
                 {/* BOTON COMPRAR */}
                 {cartItems.length > 0 ?
                     <div className="space-y-4 text-center">
+                        <dl className="mt-0.5 space-y-px text-lg text-gray-600">
+                            <div>
+                                <span className="text-2xl font-bold">Total: </span>
+                                <span className="text-2xl inline"> $ {total.toFixed(2)} </span>
+                            </div>
+                        </dl>
+
                         <a
                             href="#"
                             className="block rounded bg-gray-700 px-5 py-3 text-gray-100 text-xl font-bold transition tracking-widest
