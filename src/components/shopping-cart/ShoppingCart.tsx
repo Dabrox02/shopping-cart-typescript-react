@@ -1,10 +1,9 @@
-import { useContext } from "react";
-import { ShoppingCartContext } from "../../context/GeneralContext";
 import ShoppingCartItem from "./ShoppingCartItem";
-import { Product } from "../../types/Product.interface";
+import { ShoppingCartProduct } from "../../types/Product.interface";
+import { useShoppingCartContext } from "../../context/GeneralContext";
 
 export default function ShoppingCart() {
-    const cartItems: Product[] = useContext(ShoppingCartContext);
+    const cartItems: ShoppingCartProduct[] = useShoppingCartContext();
 
     return (<>
         <div

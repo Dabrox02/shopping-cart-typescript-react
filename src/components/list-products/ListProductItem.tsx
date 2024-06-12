@@ -1,12 +1,19 @@
+import { useShoppingCartDispatchContext } from '../../context/GeneralContext';
 import { Product } from '../../types/Product.interface';
 
 export default function ProductItem({ product }: { product: Product }) {
-
-    function handleClick() {
-    }
+    const shoppingCartDispatch: React.Dispatch<any> = useShoppingCartDispatchContext();
 
     return (<>
-        <article className="overflow-hidden rounded-lg shadow transition hover:shadow-lg my-6 cursor-pointer" key={product.id} onClick={handleClick}>
+        <article className="overflow-hidden rounded-lg shadow transition hover:shadow-lg my-6 cursor-pointer" key={product.id} onClick={() => {
+            shoppingCartDispatch({
+                type: "add_product",
+                payload: {
+                    ...product,
+                    quantity: 1
+                }
+            });
+        }}>
             <img
                 alt=""
                 src={product.image}
