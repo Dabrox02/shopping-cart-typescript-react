@@ -3,7 +3,7 @@ import { Product } from '../../types/Product.interface';
 
 export default function ProductItem({ product }: { product: Product }) {
     const shoppingCartDispatch: React.Dispatch<any> = useShoppingCartDispatchContext();
-
+    
     return (<>
         <article className="overflow-hidden rounded-lg shadow transition hover:shadow-lg my-6 cursor-pointer" key={product.id} onClick={() => {
             shoppingCartDispatch({

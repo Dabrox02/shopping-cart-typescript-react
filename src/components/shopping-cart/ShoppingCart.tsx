@@ -4,6 +4,7 @@ import { useShoppingCartContext } from "../../context/GeneralContext";
 
 export default function ShoppingCart() {
     const cartItems: ShoppingCartProduct[] = useShoppingCartContext();
+    console.log(cartItems)
 
     return (<>
         <div

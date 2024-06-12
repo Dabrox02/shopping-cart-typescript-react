@@ -1,4 +1,5 @@
 import { createContext, Dispatch, useContext, useReducer } from "react";
+import { ShoppingCartProduct } from '../types/Product.interface';
 
 const ShoppingCartContext: any = createContext([]);
 const ShoppingCartDispatchContext: any = createContext(null);
@@ -14,18 +15,55 @@ export function useShoppingCartDispatchContext(): Dispatch<any> {
 export function shoppingCartReducer(state: any, action: any) {
     switch (action.type) {
         case 'add_product': {
+            let found = state.find((el: ShoppingCartProduct) => el.id === action.payload.id);
+            if (found) {
+                return [
+                    ...state.map((el: ShoppingCartProduct) => {
+                        if (el.id === action.payload.id) {
+                            return {
+                                ...el,
+                                quantity: el.quantity + 1
+                            }
+                        } else {
+                            return el;
+                        }
+                    })
+                ]
+            } else {
+                return [
+                    ...state,
+                    action.payload
+                ]
+            }
+        }
+        case 'quit_product': {
             return [
-                ...state,
-                {
-                    ...action.payload
-                }
+                ...state.map((el: ShoppingCartProduct) => {
+                    if (el.id === action.payload.id) {
+                        return {
+                            ...el,
+                            quantity: el.quantity - 1
+                        }
+                    } else {
+                        return el;
+                    }
+                })
             ]
         }
+        case 'delete_product': {
+            return [
+                ...state.filter((el: ShoppingCartProduct) => el.id !== action.payload.id)
+            ]
+        }
+
     }
 }
 
+
+
+
 export default function ShoppingCartProvider({ children }: { children: React.ReactNode; }) {
-    const [products, dispatchProducts] = useReducer(shoppingCartReducer, [])
+    const [products, dispatchProducts] = useReducer(shoppingCartReducer, []);
 
     return (<ShoppingCartContext.Provider value={products}>
         <ShoppingCartDispatchContext.Provider value={dispatchProducts}>
@@ -47,4 +85,5 @@ export default function ShoppingCartProvider({ children }: { children: React.Rea
 //         "count": 120
 //     }
 // },]);
+
 
